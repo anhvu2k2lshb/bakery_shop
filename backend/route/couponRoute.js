@@ -1,6 +1,6 @@
-module.exports = function (router) {
+// module.exports = function (router) {
 
-    var couponController = require('../controller/couponController'); 
+//     var couponController = require('../controller/couponController'); 
     
-    router.get('/api/coupon/couponList', couponController.getAllCoupon);
-}
+//     router.get('/api/coupon/couponList', couponController.getAllCoupon);
+// }

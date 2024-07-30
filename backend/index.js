@@ -5,8 +5,7 @@ const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const dotenv = require('dotenv'); 
-dotenv.config(); 
+require('dotenv').config(); 
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
@@ -42,11 +41,11 @@ cloudinary.config({
 })
 
 require('./route/userRoute')(app); 
-require('./route/shopRoute')(app); 
-require('./route/productRoute')(app); 
-require('./route/orderRoute')(app); 
-require('./route/eventRoute')(app); 
-require('./route/couponRoute')(app); 
+// require('./route/shopRoute')(app); 
+// require('./route/productRoute')(app); 
+// require('./route/orderRoute')(app); 
+// require('./route/eventRoute')(app); 
+// require('./route/couponRoute')(app); 
 
 // create server
 const server = app.listen(process.env.PORT, () => {

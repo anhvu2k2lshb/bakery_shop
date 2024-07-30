@@ -1,6 +1,6 @@
-module.exports = function (router) {
+// module.exports = function (router) {
 
-    var prderController = require('../controller/orderController'); 
+//     var prderController = require('../controller/orderController'); 
     
-    router.get('/api/order/orderList', orderController.getAllOrder);
-}
+//     router.get('/api/order/orderList', orderController.getAllOrder);
+// }

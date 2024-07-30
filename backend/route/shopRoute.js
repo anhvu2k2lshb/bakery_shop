@@ -1,6 +1,6 @@
-module.exports = function (router) {
+// module.exports = function (router) {
 
-    var shopController = require('../controller/shopController'); 
+//     var shopController = require('../controller/shopController'); 
     
-    router.get('/api/shop/shopList', shopController.getAllShop);
-}
+//     router.get('/api/shop/shopList', shopController.getAllShop);
+// }
