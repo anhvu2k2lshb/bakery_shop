@@ -65,7 +65,7 @@ const createActivationToken = (user) => {
   });
 };
 
-// activate user
+// activate buyer user account
 exports.activateUser = async (req, res) => {
   try {
     const { activation_token } = req.body;
@@ -105,7 +105,7 @@ exports.activateUser = async (req, res) => {
   }
 };
 
-// login user
+// login buyer account
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
