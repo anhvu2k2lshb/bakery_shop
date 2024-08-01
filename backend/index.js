@@ -41,8 +41,8 @@ cloudinary.config({
 })
 
 require('./route/userRoute')(app); 
-// require('./route/shopRoute')(app); 
-// require('./route/productRoute')(app); 
+require('./route/shopRoute')(app); 
+require('./route/productRoute')(app); 
 // require('./route/orderRoute')(app); 
 // require('./route/eventRoute')(app); 
 // require('./route/couponRoute')(app); 
