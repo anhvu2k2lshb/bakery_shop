@@ -1,6 +1,9 @@
-// module.exports = function (router) {
+module.exports = function (router) {
 
-//     var couponController = require('../controller/couponController'); 
-    
-//     router.get('/api/coupon/couponList', couponController.getAllCoupon);
-// }
+    var couponCodeController = require('../controller/couponController'); 
+    var {isSeller} = require("../middleware/auth");
+    router.post('/api/coupon/create-coupon-code', isSeller ,couponCodeController.createCouponCode);
+    router.get('/api/coupon/get-coupon/:id', isSeller ,couponCodeController.getAllCouponByShopId);
+    router.delete('/api/coupon/delete-coupon/:id', isSeller ,couponCodeController.deleteCouponOfShop);
+    router.get('/api/coupon/get-coupon-value/:name' ,couponCodeController.getCouponCodeByName);
+}

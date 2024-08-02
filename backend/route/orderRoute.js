@@ -1,6 +1,19 @@
-// module.exports = function (router) {
+module.exports = function (router) {
 
-//     var prderController = require('../controller/orderController'); 
+    var orderController = require('../controller/orderController'); 
+    var { isAuthenticated, isSeller, isAdmin } = require("../middleware/auth");
     
-//     router.get('/api/order/orderList', orderController.getAllOrder);
-// }
+    router.post('/api/order/create-order', orderController.createOrder);
+    router.get('/api/order/get-all-orders/:id', orderController.getAllOrderByUserId);
+    router.get('/api/order/get-seller-all-orders/:id', orderController.getAllOrderByShopId);
+    router.put('/api/order/update-order-status/:id', isSeller ,orderController.updateOrderStatus);
+    router.put('/api/order/order-refund/:id', orderController.createRefundRequest);
+    router.put('/api/order/order-refund-success/:id', isSeller, orderController.acceptRefundRequest);
+    router.get('/api/order/admin-all-orders', isAuthenticated, isAdmin("Admin") ,orderController.getAllOrder);
+
+
+
+
+
+
+}
