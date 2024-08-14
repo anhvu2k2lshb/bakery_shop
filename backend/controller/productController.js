@@ -6,7 +6,7 @@ const cloudinary = require("cloudinary");
 // create product
 exports.createProduct = async (req, res) => {
   try {
-    const shopId = req.body.shopId;
+    const shopId = req.seller.id;
     const shop = await Shop.findById(shopId);
     if (!shop) {
       return res.status(400).json({
@@ -23,7 +23,7 @@ exports.createProduct = async (req, res) => {
       }
 
       const imagesLinks = [];
-
+      console.log(images.length)
       for (let i = 0; i < images.length; i++) {
         const result = await cloudinary.v2.uploader.upload(images[i], {
           folder: "products",

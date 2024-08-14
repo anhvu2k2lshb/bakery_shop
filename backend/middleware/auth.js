@@ -22,6 +22,7 @@ exports.isAuthenticated = async(req,res,next) => {
 
 exports.isSeller = async(req,res,next) => {
     const {seller_token} = req.cookies;
+    
     if(!seller_token){
         return res.status(401).json({
           success: false, 
@@ -30,8 +31,8 @@ exports.isSeller = async(req,res,next) => {
     }
 
     const decoded = jwt.verify(seller_token, process.env.JWT_SECRET_KEY);
-
     req.seller = await Shop.findById(decoded.id);
+    // console.log(req.seller); 
 
     next();
 };

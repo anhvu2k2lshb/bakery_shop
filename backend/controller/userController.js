@@ -3,6 +3,8 @@ const cloudinary = require("cloudinary");
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
 const sendToken = require("../utils/buyerToken");
+const sendShopToken = require("../utils/sellerToken");
+const Shop = require("../model/shop");
 
 // create user
 exports.createUser = async function (req, res, next) {
@@ -119,20 +121,40 @@ exports.login = async (req, res) => {
 
     const user = await User.findOne({ email }).select("+password");
 
-    if (!user) {
-      return next(new ErrorHandler("User doesn't exists!", 400));
-    }
+    const shop = await Shop.findOne({ email }).select("+password");
 
-    const isPasswordValid = await user.comparePassword(password);
-
-    if (!isPasswordValid) {
+    if (!user && !shop) {
       return res.status(400).json({
-        success: false,
-        message: "Mật khẩu nhập sai, vui lòng kiểm tra lại",
-      });
+        success: false, 
+        message: "Tài khoản người dùng không tồn tại."
+      })
     }
 
-    sendToken(user, 201, res);
+    if (user) {
+      const isPasswordValid = await user.comparePassword(password);
+
+      if (!isPasswordValid) {
+        return res.status(400).json({
+          success: false,
+          message: "Mật khẩu nhập sai, vui lòng kiểm tra lại",
+        });
+      }
+
+      sendToken(user, 201, res);
+    }
+
+    if (shop) {
+      const isPasswordValid = await shop.comparePassword(password);
+
+      if (!isPasswordValid) {
+        return res.status(400).json({
+          success: false,
+          message: "Mật khẩu nhập sai, vui lòng kiểm tra lại.",
+        });
+      }
+
+      sendShopToken(shop, 201, res);
+    }
   } catch (error) {
     return res.status(500).json({
       success: false,

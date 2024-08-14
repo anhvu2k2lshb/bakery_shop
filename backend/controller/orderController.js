@@ -47,13 +47,13 @@ exports.createOrder = async (req, res, next) => {
 // get all orders by userId
 exports.getAllOrderByUserId = async (req, res) => {
   try {
-    const orders = await Order.find({ "user._id": req.params.userId }).sort({
+    const orders = await Order.find({ "user._id": req.params.id }).sort({
       createdAt: -1,
     });
-
+     
     res.status(200).json({
       success: true,
-      orders,
+      orders
     });
   } catch (error) {
     return res.status(500).json({
