@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Loader from "../Layout/Loader";
 import { getAllOrdersOfShop } from "../../redux/actions/order";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { viVN } from "../../Assets/locale/viVN";
 
 const AllOrders = () => {
   const { orders, isLoading } = useSelector((state) => state.order);
@@ -18,11 +19,11 @@ const AllOrders = () => {
   }, [dispatch]);
 
   const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
+    { field: "id", headerName: "Mã đơn hàng", minWidth: 150, flex: 0.7 },
 
     {
       field: "status",
-      headerName: "Status",
+      headerName: "Trạng thái",
       minWidth: 130,
       flex: 0.7,
       cellClassName: (params) => {
@@ -33,7 +34,7 @@ const AllOrders = () => {
     },
     {
       field: "itemsQty",
-      headerName: "Items Qty",
+      headerName: "Số lượng",
       type: "number",
       minWidth: 130,
       flex: 0.7,
@@ -41,7 +42,7 @@ const AllOrders = () => {
 
     {
       field: "total",
-      headerName: "Total",
+      headerName: "Tổng tiền",
       type: "number",
       minWidth: 130,
       flex: 0.8,
@@ -51,7 +52,7 @@ const AllOrders = () => {
       field: " ",
       flex: 1,
       minWidth: 150,
-      headerName: "",
+      headerName: "Xem chi tiết",
       type: "number",
       sortable: false,
       renderCell: (params) => {
@@ -75,8 +76,8 @@ const AllOrders = () => {
       row.push({
         id: item._id,
         itemsQty: item.cart.length,
-        total: "US$ " + item.totalPrice,
-        status: item.status,
+        total: Number(item.totalPrice).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }),
+        status: item.status === "Processing" ? "Đang chờ xử lý" : (item.status === "Transferred to delivery partner" ? "Đã bàn giao cho đơn vị vận chuyển" : "Nhận hàng thành công"),
       });
     });
 
@@ -92,6 +93,7 @@ const AllOrders = () => {
             pageSize={10}
             disableSelectionOnClick
             autoHeight
+            localeText={viVN}
           />
         </div>
       )}

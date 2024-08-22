@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DashboardHeader from "../../components/Shop/Layout/DashboardHeader";
 import DashboardSideBar from "../../components/Shop/Layout/DashboardSideBar";
 import DashboardHero from "../../components/Shop/DashboardHero";
+import Store from "../../redux/store";
+import { loadSeller, loadUser } from "../../redux/actions/user";
+
 
 export const ShopDashboardPage = () => {
+  
   return (
         <div>
           <DashboardHeader />

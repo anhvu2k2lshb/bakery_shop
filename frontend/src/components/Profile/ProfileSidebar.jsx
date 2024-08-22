@@ -23,8 +23,8 @@ const ProfileSidebar = ({ setActive, active }) => {
       .get(`${server}/user/logout`, { withCredentials: true })
       .then((res) => {
         toast.success(res.data.message);
+        navigate("/");
         window.location.reload(true);
-        navigate("/login");
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -71,20 +71,6 @@ const ProfileSidebar = ({ setActive, active }) => {
           Hoàn tiền
         </span>
       </div>
-
-      {/* <div
-        className="flex items-center cursor-pointer w-full mb-8"
-        onClick={() => setActive(4) || navigate("/inbox")}
-      >
-        <AiOutlineMessage size={20} color={active === 4 ? "red" : ""} />
-        <span
-          className={`pl-3 ${
-            active === 4 ? "text-[red]" : ""
-          } 800px:block hidden`}
-        >
-          Inbox
-        </span>
-      </div> */}
 
       <div
         className="flex items-center cursor-pointer w-full mb-8"

@@ -11,7 +11,7 @@ import { HiOutlineReceiptRefund } from "react-icons/hi";
 
 const DashboardSideBar = ({ active }) => {
   return (
-    <div className="w-full h-[90vh] bg-white shadow-sm overflow-y-scroll sticky top-0 left-0 z-10">
+    <div className="w-full bg-white shadow-sm overflow-y-scroll sticky top-0 left-0 z-10">
       {/* single item */}
       <div className="w-full flex items-center p-4">
         <Link to="/dashboard" className="w-full flex items-center">
@@ -24,7 +24,7 @@ const DashboardSideBar = ({ active }) => {
               active === 1 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Dashboard
+            Trang chủ
           </h5>
         </Link>
       </div>
@@ -40,7 +40,7 @@ const DashboardSideBar = ({ active }) => {
               active === 2 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Orders
+            Đơn hàng
           </h5>
         </Link>
       </div>
@@ -53,7 +53,7 @@ const DashboardSideBar = ({ active }) => {
               active === 3 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Products
+            Sản phẩm
           </h5>
         </Link>
       </div>
@@ -72,7 +72,7 @@ const DashboardSideBar = ({ active }) => {
               active === 4 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Create Product
+            Tạo sản phẩm
           </h5>
         </Link>
       </div>
@@ -88,7 +88,7 @@ const DashboardSideBar = ({ active }) => {
               active === 5 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Events
+            Sự kiện
           </h5>
         </Link>
       </div>
@@ -104,42 +104,7 @@ const DashboardSideBar = ({ active }) => {
               active === 6 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Create Event
-          </h5>
-        </Link>
-      </div>
-
-      <div className="w-full flex items-center p-4">
-        <Link
-          to="/dashboard-withdraw-money"
-          className="w-full flex items-center"
-        >
-          <CiMoneyBill
-            size={30}
-            color={`${active === 7 ? "crimson" : "#555"}`}
-          />
-          <h5
-            className={`hidden 800px:block pl-2 text-[18px] font-[400] ${
-              active === 7 ? "text-[crimson]" : "text-[#555]"
-            }`}
-          >
-            Withdraw Money
-          </h5>
-        </Link>
-      </div>
-
-      <div className="w-full flex items-center p-4">
-        <Link to="/dashboard-messages" className="w-full flex items-center">
-          <BiMessageSquareDetail
-            size={30}
-            color={`${active === 8 ? "crimson" : "#555"}`}
-          />
-          <h5
-            className={`hidden 800px:block pl-2 text-[18px] font-[400] ${
-              active === 8 ? "text-[crimson]" : "text-[#555]"
-            }`}
-          >
-            Shop Inbox
+            Tạo sự kiện
           </h5>
         </Link>
       </div>
@@ -155,7 +120,7 @@ const DashboardSideBar = ({ active }) => {
               active === 9 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Discount Codes
+            Mã giảm giá
           </h5>
         </Link>
       </div>
@@ -171,7 +136,7 @@ const DashboardSideBar = ({ active }) => {
               active === 10 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Refunds
+            Yêu cầu hoàn tiền
           </h5>
         </Link>
       </div>
@@ -187,7 +152,7 @@ const DashboardSideBar = ({ active }) => {
               active === 11 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Settings
+            Cập nhật hồ sơ
           </h5>
         </Link>
       </div>

@@ -20,7 +20,7 @@ import { addTocart } from "../../../redux/actions/cart";
 import { toast } from "react-toastify";
 import Ratings from "../../Products/Ratings";
 
-const ProductCard = ({ data, isEvent }) => {
+const ProductCard = ({ data, isEvent, isShop }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
   const [click, setClick] = useState(false);
@@ -138,13 +138,13 @@ const ProductCard = ({ data, isEvent }) => {
             color="#333"
             title="Xem nhanh"
           />
-          <AiOutlineShoppingCart
+          {!(isShop === true) && <AiOutlineShoppingCart
             size={25}
             className="cursor-pointer absolute right-2 top-24"
             onClick={() => addToCartHandler(data._id)}
             color="#444"
             title="Thêm vào giỏ hàng"
-          />
+          />}
           {open ? <ProductDetailsCard setOpen={setOpen} data={data} /> : null}
         </div>
       </div>

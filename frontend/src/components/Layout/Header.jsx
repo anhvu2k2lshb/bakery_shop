@@ -100,7 +100,7 @@ const Header = ({ activeHeading }) => {
           <div className={`${styles.button}`}>
             <Link to={`${isSeller ? "/dashboard" : "/shop-create"}`}>
               <h1 className="text-[#fff] flex items-center">
-                {isSeller ? "Đến trang dashboard" : "Người bán"}{" "}
+                {isSeller ? "Về dashboard" : "Người bán"}{" "}
                 <IoIosArrowForward className="ml-1" />
               </h1>
             </Link>
@@ -148,7 +148,7 @@ const Header = ({ activeHeading }) => {
                 className="relative cursor-pointer mr-[15px]"
                 onClick={() => setOpenWishlist(true)}
               >
-                <AiOutlineHeart size={30} color="rgb(255 255 255 / 83%)" />
+                <AiOutlineHeart size={30} color="rgb(255 255 255 / 83%)" title="Danh mục ưa thích"/>
                 <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
                   {wishlist && wishlist.length}
                 </span>
@@ -163,6 +163,7 @@ const Header = ({ activeHeading }) => {
                 <AiOutlineShoppingCart
                   size={30}
                   color="rgb(255 255 255 / 83%)"
+                  title="Giỏ hàng"
                 />
                 <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
                   {cart && cart.length}
@@ -182,7 +183,7 @@ const Header = ({ activeHeading }) => {
                   </Link>
                 ) : (
                   <Link to="/login">
-                    <CgProfile size={30} color="rgb(255 255 255 / 83%)" />
+                    <CgProfile size={30} color="rgb(255 255 255 / 83%)" title="Đăng nhập"/>
                   </Link>
                 )}
               </div>

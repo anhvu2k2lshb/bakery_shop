@@ -67,7 +67,7 @@ exports.getAllOrderByUserId = async (req, res) => {
 exports.getAllOrderByShopId = async (req, res) => {
   try {
     const orders = await Order.find({
-      "cart.shopId": req.params.shopId,
+      "cart.shopId": req.params.id,
     }).sort({
       createdAt: -1,
     });

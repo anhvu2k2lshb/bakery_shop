@@ -8,7 +8,8 @@ import Events from "../../components/Events/Events";
 import Sponsored from "../../components/Route/Sponsored";
 import Footer from "../../components/Layout/Footer";
 import Store from "../../redux/store";
-import { loadUser } from "../../redux/actions/user";
+import { loadSeller, loadUser } from "../../redux/actions/user";
+import { useSelector } from 'react-redux';
 
 export const HomePage = () => {
 

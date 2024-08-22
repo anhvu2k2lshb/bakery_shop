@@ -40,7 +40,7 @@ exports.createEvent = async (req, res) => {
       productData.shop = shop;
 
       const event = await Event.create(productData);
-
+      console.log(event);
       res.status(201).json({
         success: true,
         event,

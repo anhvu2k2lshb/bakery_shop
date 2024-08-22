@@ -1,11 +1,12 @@
 import { Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import React, { useEffect } from "react";
+import React , {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Loader from "../Layout/Loader";
 import { getAllOrdersOfShop } from "../../redux/actions/order";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { viVN } from "../../Assets/locale/viVN";
 
 const AllRefundOrders = () => {
   const { orders, isLoading } = useSelector((state) => state.order);
@@ -17,14 +18,19 @@ const AllRefundOrders = () => {
     dispatch(getAllOrdersOfShop(seller._id));
   }, [dispatch]);
 
-  const refundOrders = orders && orders.filter((item) => item.status === "Processing refund"  || item.status === "Refund Success");
+  const refundOrders =
+    orders &&
+    orders.filter(
+      (item) =>
+        item.status === "Processing refund" || item.status === "Refund Success"
+    );
 
   const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
+    { field: "id", headerName: "Mã đơn hàng", minWidth: 150, flex: 0.7 },
 
     {
       field: "status",
-      headerName: "Status",
+      headerName: "Trạng thái",
       minWidth: 130,
       flex: 0.7,
       cellClassName: (params) => {
@@ -35,7 +41,7 @@ const AllRefundOrders = () => {
     },
     {
       field: "itemsQty",
-      headerName: "Items Qty",
+      headerName: "Số lượng",
       type: "number",
       minWidth: 130,
       flex: 0.7,
@@ -43,7 +49,7 @@ const AllRefundOrders = () => {
 
     {
       field: "total",
-      headerName: "Total",
+      headerName: "Tổng tiền",
       type: "number",
       minWidth: 130,
       flex: 0.8,
@@ -53,7 +59,7 @@ const AllRefundOrders = () => {
       field: " ",
       flex: 1,
       minWidth: 150,
-      headerName: "",
+      headerName: "Xem chi tiết",
       type: "number",
       sortable: false,
       renderCell: (params) => {
@@ -73,7 +79,7 @@ const AllRefundOrders = () => {
   const row = [];
 
   refundOrders &&
-  refundOrders.forEach((item) => {
+    refundOrders.forEach((item) => {
       row.push({
         id: item._id,
         itemsQty: item.cart.length,
@@ -94,6 +100,7 @@ const AllRefundOrders = () => {
             pageSize={10}
             disableSelectionOnClick
             autoHeight
+            localeText={viVN}
           />
         </div>
       )}
