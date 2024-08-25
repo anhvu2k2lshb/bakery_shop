@@ -37,14 +37,32 @@ const CountDown = ({ data }) => {
     return timeLeft;
   }
 
-  const timerComponents = Object.keys(timeLeft).map((interval) => {
+  const timerComponents = Object.keys(timeLeft).map((interval, index) => {
     if (!timeLeft[interval]) {
       return null;
     }
 
+  let intervalText;
+  switch (interval) {
+    case 'days':
+      intervalText = 'ngày';
+      break;
+    case 'hours':
+      intervalText = 'giờ';
+      break;
+    case 'minutes':
+      intervalText = 'phút';
+      break;
+    case 'seconds':
+      intervalText = 'giây';
+      break;
+    default:
+      intervalText = '';
+  }
+
     return (
-      <span className="text-[25px] text-[#475ad2]">
-        {timeLeft[interval]} {interval}{" "}
+      <span className="text-[25px] text-[#475ad2]" key={index}>
+        {timeLeft[interval]} {intervalText}{" "}
       </span>
     );
   });

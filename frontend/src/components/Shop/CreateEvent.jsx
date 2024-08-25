@@ -96,7 +96,7 @@ const CreateEvent = () => {
       start_Date: startDate?.toISOString(),
       Finish_Date: endDate?.toISOString(),
     };
-    console.log(data);
+    
     dispatch(createevent(data));
   };
 

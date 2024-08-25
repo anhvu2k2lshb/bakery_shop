@@ -8,7 +8,6 @@ import styles from "../../styles/styles";
 
 export const EventsPage = () => {
   const { allEvents, isLoading } = useSelector((state) => state.events);
- 
   return (
     <>
       {isLoading ? (
@@ -18,7 +17,8 @@ export const EventsPage = () => {
           <Header activeHeading={4} />
         <div className={`${styles.section}`}>
           
-          {(allEvents?.length !== 0) ? <EventCard active={true} data={allEvents && allEvents[0]}/>: <h1 className="text-center w-full pt-[100px] pb-[100px] text-[20px]">
+          {(allEvents?.length !== 0) ? allEvents.map((event, index) =>
+          <EventCard active={true} data={event} key={index}/>): <h1 className="text-center w-full pt-[100px] pb-[100px] text-[20px]">
             Không có sự kiện nào!
           </h1>}
           

@@ -21,7 +21,6 @@ export const HomePage = () => {
         <BestDeals />
         <Events />
         <FeaturedProduct />
-        {/* <Sponsored /> */}
         <Footer />
     </div>
   )

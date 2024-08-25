@@ -8,7 +8,8 @@ export const createevent = (data) => async (dispatch) => {
       type: "eventCreateRequest",
     });
 
-    const { d } = await axios.post(`${server}/event/create-event`, data, {withCredentials: true});
+    const d = await axios.post(`${server}/event/create-event`, data, {withCredentials: true});
+    
     dispatch({
       type: "eventCreateSuccess",
       payload: d.event,
@@ -49,11 +50,8 @@ export const deleteEvent = (id) => async (dispatch) => {
       type: "deleteeventRequest",
     });
 
-    const { data } = await axios.delete(
-      `${server}/event/delete-shop-event/${id}`,
-      {
-        withCredentials: true,
-      }
+    const data = await axios.delete(
+      `${server}/event/delete-shop-event/${id}`
     );
 
     dispatch({

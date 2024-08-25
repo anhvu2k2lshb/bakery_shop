@@ -9,6 +9,7 @@ import { getAllProductsShop } from "../../redux/actions/product";
 import { deleteProduct } from "../../redux/actions/product";
 import Loader from "../Layout/Loader";
 import { viVN } from "../../Assets/locale/viVN";
+import { toast } from "react-toastify";
 
 const AllEvents = () => {
   const { events, isLoading } = useSelector((state) => state.events);
@@ -22,6 +23,7 @@ const AllEvents = () => {
 
   const handleDelete = (id) => {
     dispatch(deleteEvent(id));
+    toast.success("Xóa sự kiện thành công");
     window.location.reload();
   }
 
@@ -86,7 +88,7 @@ const AllEvents = () => {
         return (
           <>
             <Button
-            onClick={() => handleDelete(params.id)}
+            onClick={() => {handleDelete(params.id);}}
             >
               <AiOutlineDelete size={20} />
             </Button>

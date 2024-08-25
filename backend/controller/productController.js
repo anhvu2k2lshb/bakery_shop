@@ -41,7 +41,7 @@ exports.createProduct = async (req, res) => {
 
       const product = await Product.create(productData);
 
-      res.status(201).json({
+      return res.status(201).json({
         success: true,
         product,
       });

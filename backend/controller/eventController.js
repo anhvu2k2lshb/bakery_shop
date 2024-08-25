@@ -40,8 +40,7 @@ exports.createEvent = async (req, res) => {
       productData.shop = shop;
 
       const event = await Event.create(productData);
-      console.log(event);
-      res.status(201).json({
+      return res.status(201).json({
         success: true,
         event,
       });
@@ -91,23 +90,23 @@ exports.getAllEventOfShop = async (req, res) => {
 exports.deleteEventOfShop = async (req, res) => {
   try {
     const event = await Event.findById(req.params.id);
-
+   
     if (!event) {
       return res.status(404).json({
         success: false,
         message: "Không tìm thấy sự kiện cần x",
       });
     }
-
-    for (let i = 0; 1 < product.images.length; i++) {
+    
+    for (let i = 0; i < event.images.length; i++) {
       const result = await cloudinary.v2.uploader.destroy(
         event.images[i].public_id
       );
     }
-
-    await event.remove();
-
-    res.status(201).json({
+   
+    await Event.findByIdAndDelete(req.params.id);
+    
+    return res.status(201).json({
       success: true,
       message: "Đã xóa sự kiện thành công!",
     });
