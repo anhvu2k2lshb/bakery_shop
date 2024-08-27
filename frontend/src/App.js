@@ -40,8 +40,6 @@ import { ShopAllProducts } from "./pages/seller/ShopAllProducts";
 import { ShopCreateEvents } from "./pages/seller/ShopCreateEvents";
 import ShopAllEvents from "./pages/seller/ShopAllEvents";
 import ShopAllCoupouns from "./pages/seller/ShopAllCoupouns";
-import { ShopWithDrawMoneyPage } from "./pages/seller/ShopWithDrawMoneyPage";
-import { ShopInboxPage } from "./pages/seller/ShopInboxPage";
 import { PaymentPage } from "./pages/buyer/PaymentPage";
 
 
@@ -213,22 +211,6 @@ function App() {
             element={
               <SellerProtectedRoute>
                 <ShopAllCoupouns />
-              </SellerProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard-withdraw-money"
-            element={
-              <SellerProtectedRoute>
-                <ShopWithDrawMoneyPage />
-              </SellerProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard-messages"
-            element={
-              <SellerProtectedRoute>
-                <ShopInboxPage />
               </SellerProtectedRoute>
             }
           />

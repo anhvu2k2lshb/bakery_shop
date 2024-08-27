@@ -24,10 +24,10 @@ const AllOrders = () => {
     {
       field: "status",
       headerName: "Trạng thái",
-      minWidth: 130,
-      flex: 0.7,
+      minWidth: 180,
+      flex: 1,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
+        return params.getValue(params.id, "status") === "Nhận hàng thành công"
           ? "greenColor"
           : "redColor";
       },
@@ -76,17 +76,34 @@ const AllOrders = () => {
       row.push({
         id: item._id,
         itemsQty: item.cart.length,
-        total: Number(item.totalPrice).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }),
-        status: item.status === "Processing" ? "Đang chờ xử lý" : (item.status === "Transferred to delivery partner" ? "Đã bàn giao cho đơn vị vận chuyển" : "Nhận hàng thành công"),
+        total: Number(item.totalPrice).toLocaleString("vi-VN", {
+          style: "currency",
+          currency: "VND",
+        }),
+        status:
+          item.status === "Processing"
+            ? "Đang chờ xử lý"
+            : item.status === "Transferred to delivery partner"
+            ? "Đã bàn giao cho đơn vị vận chuyển"
+            : "Nhận hàng thành công",
       });
     });
 
+  const styles = `
+  .greenColor {
+    background-color: lightgreen !important;
+  }
+  .redColor {
+    background-color: lightcoral !important;
+  }
+`;
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : (
         <div className="w-full mx-8 pt-1 mt-10 bg-white">
+          <style>{styles}</style>
           <DataGrid
             rows={row}
             columns={columns}

@@ -9,6 +9,7 @@ import styles from "../../styles/styles";
 import Loader from "../Layout/Loader";
 import { server } from "../../server";
 import { toast } from "react-toastify";
+import { viVN } from "../../Assets/locale/viVN";
 
 const AllCoupons = () => {
   const [open, setOpen] = useState(false);
@@ -41,7 +42,7 @@ const AllCoupons = () => {
 
   const handleDelete = async (id) => {
     axios.delete(`${server}/coupon/delete-coupon/${id}`,{withCredentials: true}).then((res) => {
-      toast.success("Tạo mã giảm giá thành công!")
+      toast.success("Xóa mã giảm giá thành công!")
     })
     window.location.reload();
   };
@@ -137,6 +138,7 @@ const AllCoupons = () => {
             pageSize={10}
             disableSelectionOnClick
             autoHeight
+            localeText={viVN}
           />
           {open && (
             <div className="fixed top-0 left-0 w-full h-screen bg-[#00000062] z-[20000] flex items-center justify-center">

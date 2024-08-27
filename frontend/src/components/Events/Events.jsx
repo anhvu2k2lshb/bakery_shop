@@ -23,7 +23,9 @@ const Events = () => {
          }
          <h4>{
            allEvents?.length === 0 && (
-            'Không có sự kiện nào!'
+            <p className='text-center'>
+              Không có sự kiện nào!
+            </p>
            )
           }
 

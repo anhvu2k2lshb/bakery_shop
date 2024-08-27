@@ -23,6 +23,32 @@ const ShopProfileData = ({ isOwner }) => {
   const allReviews =
     products && products.map((product) => product.reviews).flat();
 
+    const truncateToDate = (date) => {
+      const truncatedDate = new Date(date);
+      truncatedDate.setHours(0, 0, 0, 0);
+      return truncatedDate;
+    }
+    const daysBetween = (date1, date2) => {
+      const diffTime = Math.abs(truncateToDate(date2) - truncateToDate(date1));
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays;
+    }
+    
+  
+    const formatDaysAgo = (createdAt) => {
+      const now = new Date();
+      const createdDate = new Date(createdAt);
+      const days = daysBetween(createdDate, now);
+      
+      if (days === 0) {
+        return 'hôm nay';
+      } else if (days === 1) {
+        return 'ngày hôm qua';
+      } else {
+        return `${days} ngày trước`;
+      }
+    }
+
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
@@ -116,7 +142,7 @@ const ShopProfileData = ({ isOwner }) => {
                     <Ratings rating={item.rating} />
                   </div>
                   <p className="font-[400] text-[#000000a7]">{item?.comment}</p>
-                  <p className="text-[#000000a7] text-[14px]">{"2days ago"}</p>
+                  <p className="text-[#000000a7] text-[14px]">Được viết: {formatDaysAgo(item?.createdAt)}</p>
                 </div>
               </div>
             ))}

@@ -225,9 +225,9 @@ const UserOrderDetails = () => {
           <br />
            {
             data?.status === "Delivered" && (
-              <div className={`${styles.button} text-white`}
+              <div className={`${styles.button} text-white hover:opacity-75`}
               onClick={refundHandler}
-              >Bạn muốn hoàn trả hàng?</div>
+              >Bạn muốn trả hàng?</div>
             )
            }
         </div>

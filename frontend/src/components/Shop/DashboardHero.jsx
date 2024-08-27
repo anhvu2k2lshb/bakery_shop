@@ -8,6 +8,7 @@ import { getAllOrdersOfShop } from "../../redux/actions/order";
 import { getAllProductsShop } from "../../redux/actions/product";
 import { Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
+import { viVN } from "../../Assets/locale/viVN";
 
 const DashboardHero = () => {
   const dispatch = useDispatch();
@@ -62,7 +63,7 @@ const DashboardHero = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/dashboard/order/${params.id}`}>
+            <Link to={`/order/${params.id}`}>
               <Button>
                 <AiOutlineArrowRight size={20} />
               </Button>
@@ -147,6 +148,7 @@ const DashboardHero = () => {
         pageSize={10}
         disableSelectionOnClick
         autoHeight
+        localeText={viVN}
       />
       </div>
     </div>

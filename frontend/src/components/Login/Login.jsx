@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
+import Store from "../../redux/store";
+import { loadSeller, loadUser } from "../../redux/actions/user";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,15 +27,17 @@ const Login = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        toast.success("Đăng nhập thành công");
         if (res.data.user.role === "Seller") {
+          // Store.dispatch(loadSeller());
           navigate(`/dashboard`)
         } else if (res.data.user.role === "user") {
+          // Store.dispatch(loadUser()); 
           navigate("/");
         } else {
           navigate("/admin/dashboard")
         }
         window.location.reload(true);
+        toast.success("Đăng nhập thành công");
       })
       .catch((err) => {
         toast.error(err.response.data.message);

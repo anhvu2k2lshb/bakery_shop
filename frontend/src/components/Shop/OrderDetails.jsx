@@ -137,15 +137,15 @@ const OrderDetails = () => {
       {data?.status !== "Processing refund" && data?.status !== "Refund Success" && (
         <select
           value={status}
-          onChange={(e) => {setStatus(e.target.value)}}
+          onChange={(e) => {setStatus(e.target.value); console.log(e.target.value)}}
           className="w-[200px] mt-2 border h-[35px] rounded-[5px]"
         >
           {[
             {key: "Processing", value: "Đang xử lý"},
             {key: "Transferred to delivery partner", value: "Đã bàn giao cho đơn vị vận chuyển"},
             {key: "Shipping", value: "Đang vận chuyển"},
-            {key: "Received", value: "Đã nhận hàng"},
-            {key: "On the way", value: "Đang trên đường"},
+            {key: "Received", value: "Đã đến trạm gần địa chỉ giao hàng"},
+            {key: "On the way", value: "Đang trên đường giao"},
             {key: "Delivered", value: "Đã giao thành công"},
           ]
             .slice(
