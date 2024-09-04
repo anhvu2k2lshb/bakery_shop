@@ -45,7 +45,7 @@ const ProfileSidebar = ({ setActive, active }) => {
           Thông tin
         </span>
       </div>
-      <div
+      {(user?.role !== "Admin") && <div
         className="flex items-center cursor-pointer w-full mb-8"
         onClick={() => setActive(2)}
       >
@@ -57,8 +57,8 @@ const ProfileSidebar = ({ setActive, active }) => {
         >
           Đơn hàng
         </span>
-      </div>
-      <div
+      </div>}
+      {(user?.role !== "Admin") && <div
         className="flex items-center cursor-pointer w-full mb-8"
         onClick={() => setActive(3)}
       >
@@ -70,9 +70,9 @@ const ProfileSidebar = ({ setActive, active }) => {
         >
           Hoàn tiền
         </span>
-      </div>
+      </div>}
 
-      <div
+      {(user?.role !== "Admin") && <div
         className="flex items-center cursor-pointer w-full mb-8"
         onClick={() => setActive(5)}
       >
@@ -84,7 +84,7 @@ const ProfileSidebar = ({ setActive, active }) => {
         >
           Theo dõi đơn hàng
         </span>
-      </div>
+      </div>}
 
       <div
         className="flex items-center cursor-pointer w-full mb-8"

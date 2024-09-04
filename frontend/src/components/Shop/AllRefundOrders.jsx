@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import React , {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Loader from "../Layout/Loader";
@@ -34,7 +34,7 @@ const AllRefundOrders = () => {
       minWidth: 130,
       flex: 0.7,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
+        return params.getValue(params.id, "status") === "Đã giao thành công"
           ? "greenColor"
           : "redColor";
       },
@@ -77,23 +77,41 @@ const AllRefundOrders = () => {
   ];
 
   const row = [];
-
+  const orderStatus = {
+    Processing: "Đang xử lý",
+    "Transferred to delivery partner": "Đã bàn giao cho đơn vị vận chuyển",
+    Shipping: "Đang vận chuyển",
+    Received: "Đơn hàng đã đến trạm gần địa chỉ bạn cung cấp",
+    "On the way": "Đang trên đường giao, vui lòng chú ý điện thoại",
+    Delivered: "Đã giao thành công",
+  };
   refundOrders &&
     refundOrders.forEach((item) => {
       row.push({
         id: item._id,
-        itemsQty: item.cart.length,
-        total: "US$ " + item.totalPrice,
-        status: item.status,
+        itemsQty: item.cart.reduce((total, item) => total + item.qty, 0),
+        total: item.totalPrice.toLocaleString("vi-VN", {
+          style: "currency",
+          currency: "VND",
+        }),
+        status: orderStatus[item.status],
       });
     });
-
+  const styles = `
+    .greenColor {
+      background-color: lightgreen !important;
+    }
+    .redColor {
+      background-color: lightcoral !important;
+    }
+  `;
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : (
         <div className="w-full mx-8 pt-1 mt-10 bg-white">
+          <style>{styles}</style>
           <DataGrid
             rows={row}
             columns={columns}

@@ -27,7 +27,7 @@ const AllOrders = () => {
       minWidth: 180,
       flex: 1,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Nhận hàng thành công"
+        return params.getValue(params.id, "status") === "Đã giao thành công"
           ? "greenColor"
           : "redColor";
       },
@@ -70,22 +70,24 @@ const AllOrders = () => {
   ];
 
   const row = [];
-
+  const orderStatus = {
+    "Processing": "Đang xử lý",
+    "Transferred to delivery partner": "Đã bàn giao cho đơn vị vận chuyển",
+    "Shipping": "Đang vận chuyển",
+    "Received": "Đã nhận hàng",
+    "On the way": "Đang trên đường giao",
+    "Delivered": "Đã giao thành công"
+};
   orders &&
     orders.forEach((item) => {
       row.push({
         id: item._id,
-        itemsQty: item.cart.length,
+        itemsQty: item.cart.reduce((total, item) => total + item.qty, 0),
         total: Number(item.totalPrice).toLocaleString("vi-VN", {
           style: "currency",
           currency: "VND",
         }),
-        status:
-          item.status === "Processing"
-            ? "Đang chờ xử lý"
-            : item.status === "Transferred to delivery partner"
-            ? "Đã bàn giao cho đơn vị vận chuyển"
-            : "Nhận hàng thành công",
+        status:orderStatus[item?.status],
       });
     });
 

@@ -32,15 +32,20 @@ import { ShopLoginPage } from "./pages/seller/ShopLoginPage";
 import { ShopHomePage } from "./pages/seller/ShopHomePage";
 import { ShopSettingsPage } from "./pages/seller/ShopSettingsPage";
 import { ShopDashboardPage } from "./pages/seller/ShopDashboardPage";
-import { ShopCreateProduct } from "./pages/seller/ShopCreateProduct";
 import { ShopAllOrders } from "./pages/seller/ShopAllOrders";
 import { ShopAllRefunds } from "./pages/seller/ShopAllRefunds";
 import { ShopOrderDetails } from "./pages/seller/ShopOrderDetails";
 import { ShopAllProducts } from "./pages/seller/ShopAllProducts";
-import { ShopCreateEvents } from "./pages/seller/ShopCreateEvents";
 import ShopAllEvents from "./pages/seller/ShopAllEvents";
 import ShopAllCoupouns from "./pages/seller/ShopAllCoupouns";
 import { PaymentPage } from "./pages/buyer/PaymentPage";
+import AdminProtectedRoute from "./protectedRoute/AdminProtectedRoute";
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
+import AdminDashboardUsers from "./pages/admin/AdminDashboardUsers";
+import AdminDashboardSellers from "./pages/admin/AdminDashboardSellers";
+import AdminDashboardOrders from "./pages/admin/AdminDashboardOrders";
+import AdminDashboardProducts from "./pages/admin/AdminDashboardProducts";
+import AdminDashboardEvents from "./pages/admin/AdminDashboardEvents";
 
 
 function App() {
@@ -150,14 +155,6 @@ function App() {
             }
           />
           <Route
-            path="/dashboard-create-product"
-            element={
-              <SellerProtectedRoute>
-                <ShopCreateProduct />
-              </SellerProtectedRoute>
-            }
-          />
-          <Route
             path="/dashboard-orders"
             element={
               <SellerProtectedRoute>
@@ -191,14 +188,6 @@ function App() {
             }
           />
           <Route
-            path="/dashboard-create-event"
-            element={
-              <SellerProtectedRoute>
-                <ShopCreateEvents />
-              </SellerProtectedRoute>
-            }
-          />
-          <Route
             path="/dashboard-events"
             element={
               <SellerProtectedRoute>
@@ -214,6 +203,56 @@ function App() {
               </SellerProtectedRoute>
             }
           />
+
+          {/* Admin  */}
+          <Route
+          path="/admin/dashboard"
+          element={
+            <AdminProtectedRoute>
+              <AdminDashboardPage />
+            </AdminProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin-users"
+          element={
+            <AdminProtectedRoute>
+              <AdminDashboardUsers />
+            </AdminProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin-sellers"
+          element={
+            <AdminProtectedRoute>
+              <AdminDashboardSellers />
+            </AdminProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin-orders"
+          element={
+            <AdminProtectedRoute>
+              <AdminDashboardOrders />
+            </AdminProtectedRoute>
+          }
+        />
+         <Route
+          path="/admin-products"
+          element={
+            <AdminProtectedRoute>
+              <AdminDashboardProducts />
+            </AdminProtectedRoute>
+          }
+        />
+         <Route
+          path="/admin-events"
+          element={
+            <AdminProtectedRoute>
+              <AdminDashboardEvents />
+            </AdminProtectedRoute>
+          }
+        />
         </Routes>
         <ToastContainer
           position="bottom-center"

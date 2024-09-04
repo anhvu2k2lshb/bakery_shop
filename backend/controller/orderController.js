@@ -129,7 +129,7 @@ exports.updateOrderStatus = async (req, res) => {
     async function updateSellerInfo(amount) {
       const seller = await Shop.findById(req.seller.id);
 
-      seller.availableBalance = amount;
+      seller.availableBalance += amount;
 
       await seller.save();
     }

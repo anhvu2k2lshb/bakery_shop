@@ -30,9 +30,9 @@ const DashboardHero = () => {
       field: "status",
       headerName: "Trạng thái",
       minWidth: 130,
-      flex: 0.7,
+      flex: 1.4,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
+        return params.getValue(params.id, "status") === "Đã giao thành công"
           ? "greenColor"
           : "redColor";
       },
@@ -75,15 +75,30 @@ const DashboardHero = () => {
   ];
 
   const row = [];
-
+  const orderStatus = {
+    "Processing": "Đang xử lý",
+    "Transferred to delivery partner": "Đã bàn giao cho đơn vị vận chuyển",
+    "Shipping": "Đang vận chuyển",
+    "Received": "Đơn hàng đã đến trạm gần địa chỉ bạn cung cấp",
+    "On the way": "Đang trên đường giao, vui lòng chú ý điện thoại",
+    "Delivered": "Đã giao thành công"
+};
   orders && orders.forEach((item) => {
     row.push({
         id: item._id,
         itemsQty: item.cart.reduce((acc, item) => acc + item.qty, 0),
         total: Number(item.totalPrice).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }),
-        status: item.status === "Processing" ? "Đang chờ xử lý" : (item.status === "Transferred to delivery partner" ? "Đã bàn giao cho đơn vị vận chuyển" : "Nhận hàng thành công"),
+        status: orderStatus[item.status]
       });
   });
+  const styles = `
+  .greenColor {
+    background-color: lightgreen !important;
+  }
+  .redColor {
+    background-color: lightcoral !important;
+  }
+`;
   return (
     <div className="w-full p-8 h-[80vh] overflow-y-scroll">
       <h3 className="text-[22px] font-Poppins pb-2">Thống kê</h3>
@@ -142,6 +157,7 @@ const DashboardHero = () => {
       <br />
       <h3 className="text-[22px] font-Poppins pb-2">Đơn hàng gần đây</h3>
       <div className="w-full min-h-[45vh] bg-white rounded">
+      <style>{styles}</style>
       <DataGrid
         rows={row}
         columns={columns}

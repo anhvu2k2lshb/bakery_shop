@@ -23,7 +23,7 @@ const UserOrderDetails = () => {
 
   useEffect(() => {
     dispatch(getAllOrdersOfUser(user._id));
-  }, [dispatch,user._id]);
+  }, [dispatch, user._id]);
 
   const data = orders && orders.find((item) => item._id === id);
 
@@ -51,18 +51,28 @@ const UserOrderDetails = () => {
         toast.error(error);
       });
   };
-  
-  const refundHandler = async () => {
-    await axios.put(`${server}/order/order-refund/${id}`,{
-      status: "Processing refund"
-    }).then((res) => {
-       toast.success(res.data.message);
-    dispatch(getAllOrdersOfUser(user._id));
-    }).catch((error) => {
-      toast.error(error.response.data.message);
-    })
-  };
 
+  const refundHandler = async () => {
+    await axios
+      .put(`${server}/order/order-refund/${id}`, {
+        status: "Processing refund",
+      })
+      .then((res) => {
+        toast.success(res.data.message);
+        dispatch(getAllOrdersOfUser(user._id));
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+      });
+  };
+  const orderStatus = {
+    Processing: "Đang xử lý",
+    "Transferred to delivery partner": "Đã bàn giao cho đơn vị vận chuyển",
+    Shipping: "Đang vận chuyển",
+    Received: "Đơn hàng đã đến trạm gần địa chỉ bạn cung cấp",
+    "On the way": "Đang trên đường giao, vui lòng chú ý điện thoại",
+    Delivered: "Đã giao thành công",
+  };
   return (
     <div className={`py-4 min-h-screen ${styles.section}`}>
       <div className="w-full flex items-center justify-between">
@@ -77,6 +87,9 @@ const UserOrderDetails = () => {
           Mã đơn hàng: <span>#{data?._id?.slice(0, 8)}</span>
         </h5>
         <h5 className="text-[#00000084]">
+          Trạng thái đơn hàng: <span>{orderStatus[data?.status]}</span>
+        </h5>
+        <h5 className="text-[#00000084]">
           Thời gian đặt hàng: <span>{data?.createdAt?.slice(0, 10)}</span>
         </h5>
       </div>
@@ -86,30 +99,34 @@ const UserOrderDetails = () => {
       <br />
       {data &&
         data?.cart.map((item, index) => {
-          return(
-          <div className="w-full flex items-start mb-5">
-            <img
-              src={`${item.images[0]?.url}`}
-              alt=""
-              className="w-[80x] h-[80px]"
-            />
-            <div className="w-full">
-              <h5 className="pl-3 text-[20px]">{item.name}</h5>
-              <h5 className="pl-3 text-[20px] text-[#00000091]">
-                {(item.discountPrice).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} x {item.qty}
-              </h5>
+          return (
+            <div className="w-full flex items-start mb-5">
+              <img
+                src={`${item.images[0]?.url}`}
+                alt=""
+                className="w-[80x] h-[80px]"
+              />
+              <div className="w-full">
+                <h5 className="pl-3 text-[20px]">{item.name}</h5>
+                <h5 className="pl-3 text-[20px] text-[#00000091]">
+                  {item.discountPrice.toLocaleString("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  })}{" "}
+                  x {item.qty}
+                </h5>
+              </div>
+              {!item.isReviewed && data?.status === "Delivered" ? (
+                <div
+                  className={`${styles.button} text-[#fff]`}
+                  onClick={() => setOpen(true) || setSelectedItem(item)}
+                >
+                  Viết đánh giá
+                </div>
+              ) : null}
             </div>
-            {!item.isReviewed && data?.status === "Delivered" ?  <div
-                className={`${styles.button} text-[#fff]`}
-                onClick={() => setOpen(true) || setSelectedItem(item)}
-              >
-                Viết đánh giá
-              </div> : (
-             null
-            )}
-          </div>
-          )
-         })}
+          );
+        })}
 
       {/* review popup */}
       {open && (
@@ -135,7 +152,11 @@ const UserOrderDetails = () => {
               <div>
                 <div className="pl-3 text-[20px]">{selectedItem?.name}</div>
                 <h4 className="pl-3 text-[20px]">
-                  {(selectedItem?.discountPrice).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} x {selectedItem?.qty}
+                  {(selectedItem?.discountPrice).toLocaleString("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  })}{" "}
+                  x {selectedItem?.qty}
                 </h4>
               </div>
             </div>
@@ -199,7 +220,13 @@ const UserOrderDetails = () => {
 
       <div className="border-t w-full text-right">
         <h5 className="pt-3 text-[18px]">
-          Tổng tiền: <strong>{(data?.totalPrice).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</strong>
+          Tổng tiền:{" "}
+          <strong>
+            {(data?.totalPrice).toLocaleString("vi-VN", {
+              style: "currency",
+              currency: "VND",
+            })}
+          </strong>
         </h5>
       </div>
       <br />
@@ -220,16 +247,19 @@ const UserOrderDetails = () => {
           <h4 className="pt-3 text-[20px]">Thông tin thanh toán:</h4>
           <h4>
             Trạng thái:{" "}
-            {data?.paymentInfo?.status ? data?.paymentInfo?.status : "Chưa thanh toán"}
+            {data?.paymentInfo?.status === "Succeeded"
+              ? "Đã thanh toán"
+              : "Chưa thanh toán"}
           </h4>
           <br />
-           {
-            data?.status === "Delivered" && (
-              <div className={`${styles.button} text-white hover:opacity-75`}
+          {data?.status === "Delivered" && (
+            <div
+              className={`${styles.button} text-white hover:opacity-75`}
               onClick={refundHandler}
-              >Bạn muốn trả hàng?</div>
-            )
-           }
+            >
+              Bạn muốn trả hàng?
+            </div>
+          )}
         </div>
       </div>
       <br />

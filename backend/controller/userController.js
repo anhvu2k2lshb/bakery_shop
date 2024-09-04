@@ -20,7 +20,9 @@ exports.createUser = async function (req, res, next) {
       });
     }
 
+
     const myCloud = await cloudinary.v2.uploader.upload(avatar);
+    console.log(avatar);
 
     const user = {
       name: name,
@@ -31,6 +33,7 @@ exports.createUser = async function (req, res, next) {
         url: myCloud.secure_url,
       },
     };
+    console.log("user", user)
 
     const activationToken = createActivationToken(user);
 
@@ -230,10 +233,10 @@ exports.updateUserInfor = async (req, res) => {
         message: "Mật khẩu nhập sai, vui lòng kiểm tra lại.",
       });
     }
-
     user.name = name;
     user.email = email;
     user.phoneNumber = phoneNumber;
+    console.log(user.phoneNumber)
 
     await user.save();
 

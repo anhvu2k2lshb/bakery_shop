@@ -34,7 +34,9 @@ const OrderDetails = () => {
       )
       .then((res) => {
         toast.success("Cập nhật đơn hàng thành công");
+        
         navigate("/dashboard-orders");
+        window.location.reload(true);
       })
       .catch((error) => {
         toast.error(error.response.data.message);
@@ -52,12 +54,22 @@ const OrderDetails = () => {
     )
     .then((res) => {
       toast.success("Cập nhật đơn hàng thành công");
+      window.location.reload(true);
       dispatch(getAllOrdersOfShop(seller._id));
     })
     .catch((error) => {
       toast.error(error.response.data.message);
     });
   }
+
+  const orderStatus = {
+    "Processing": "Đang xử lý",
+    "Transferred to delivery partner": "Đã bàn giao cho đơn vị vận chuyển",
+    "Shipping": "Đang vận chuyển",
+    "Received": "Đơn hàng đã đến trạm gần địa chỉ bạn cung cấp",
+    "On the way": "Đang trên đường giao, vui lòng chú ý điện thoại",
+    "Delivered": "Đã giao thành công"
+};
 
   return (
     <div className={`py-4 min-h-screen ${styles.section}`}>
@@ -78,6 +90,9 @@ const OrderDetails = () => {
       <div className="w-full flex items-center justify-between pt-6">
         <h5 className="text-[#00000084]">
           Mã đơn hàng: <span>#{data?._id?.slice(0, 8)}</span>
+        </h5>
+        <h5 className="text-[#00000084]">
+          Trạng thái đơn hàng: <span>{orderStatus[data?.status]}</span>
         </h5>
         <h5 className="text-[#00000084]">
           Thời gian đặt hàng: <span>{data?.createdAt?.slice(0, 10)}</span>
@@ -127,7 +142,7 @@ const OrderDetails = () => {
           <h4 className="pt-3 text-[20px]">Thông tin thanh toán:</h4>
           <h4>
             Trạng thái:{" "}
-            {data?.paymentInfo?.status ? data?.paymentInfo?.status : "Chưa thanh toán"}
+            {data?.paymentInfo?.status === "Succeeded" ? "Đã thanh toán" : "Chưa thanh toán"}
           </h4>
         </div>
       </div>
@@ -137,7 +152,7 @@ const OrderDetails = () => {
       {data?.status !== "Processing refund" && data?.status !== "Refund Success" && (
         <select
           value={status}
-          onChange={(e) => {setStatus(e.target.value); console.log(e.target.value)}}
+          onChange={(e) => {setStatus(e.target.value)}}
           className="w-[200px] mt-2 border h-[35px] rounded-[5px]"
         >
           {[
@@ -172,8 +187,8 @@ const OrderDetails = () => {
        className="w-[200px] mt-2 border h-[35px] rounded-[5px]"
       >
         {[
-            "Processing refund",
-            "Refund Success",
+            {key: "Processing refund", value: "Đang xử lý hoàn tiền"},
+            {key: "Refund Success", value: "Hoàn tất xử lý hoàn tiền"},
           ]
             .slice(
               [
@@ -182,8 +197,8 @@ const OrderDetails = () => {
               ].indexOf(data?.status)
             )
             .map((option, index) => (
-              <option value={option} key={index}>
-                {option}
+              <option value={option.key} key={index}>
+                {option.value}
               </option>
             ))}
       </select>

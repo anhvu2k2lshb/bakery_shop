@@ -34,7 +34,7 @@ const Login = () => {
           // Store.dispatch(loadUser()); 
           navigate("/");
         } else {
-          navigate("/admin/dashboard")
+          navigate("/admin/dashboard");
         }
         window.location.reload(true);
         toast.success("Đăng nhập thành công");

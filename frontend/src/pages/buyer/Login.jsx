@@ -5,7 +5,7 @@ import Login from "../../components/Login/Login.jsx";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { isAuthenticated} = useSelector((state) => state.user);
+  const { isAuthenticated, user, isLoading} = useSelector((state) => state.user);
 
   useEffect(() => {
     if(isAuthenticated === true){

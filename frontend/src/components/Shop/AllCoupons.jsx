@@ -74,22 +74,22 @@ const AllCoupons = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "Id", minWidth: 150, flex: 0.7 },
+    { field: "id", headerName: "Id", minWidth: 150, flex: 0.5 },
     {
       field: "name",
       headerName: "Mã giảm giá",
       minWidth: 180,
-      flex: 1.4,
+      flex: 0.5,
     },
     {
       field: "price",
       headerName: "Giá trị",
       minWidth: 100,
-      flex: 0.6,
+      flex: 0.5,
     },
     {
       field: "Delete",
-      flex: 0.8,
+      flex: 0.5,
       minWidth: 120,
       headerName: "Xóa",
       type: "number",
@@ -142,7 +142,7 @@ const AllCoupons = () => {
           />
           {open && (
             <div className="fixed top-0 left-0 w-full h-screen bg-[#00000062] z-[20000] flex items-center justify-center">
-              <div className="w-[90%] 800px:w-[40%] bg-white rounded-md shadow p-4">
+              <div className="w-[90%] 800px:w-[40%] h-[90vh] 800px:h-[90vh] overflow-auto bg-white rounded-md shadow p-4">
                 <div className="w-full flex justify-end">
                   <RxCross1
                     size={30}
@@ -233,8 +233,8 @@ const AllCoupons = () => {
                   <div>
                     <input
                       type="submit"
-                      value="Tạo"
-                      className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      value="Tạo mã giảm giá"
+                      className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm  bg-[#09489b] text-white"
                     />
                   </div>
                 </form>

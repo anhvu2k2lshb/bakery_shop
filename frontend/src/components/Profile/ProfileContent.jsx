@@ -76,7 +76,6 @@ const ProfileContent = ({ active }) => {
 
     reader.readAsDataURL(e.target.files[0]);
   };
-
   return (
     <div className="w-full">
       {/* profile */}
@@ -206,6 +205,7 @@ const ProfileContent = ({ active }) => {
 const AllOrders = () => {
   const { user } = useSelector((state) => state.user);
   const { orders } = useSelector((state) => state.order);
+  console.log(orders)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -219,9 +219,9 @@ const AllOrders = () => {
       field: "status",
       headerName: "Trạng thái đơn hàng",
       minWidth: 130,
-      flex: 0.7,
+      flex: 1.4,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
+        return params.getValue(params.id, "status") === "Đã giao thành công"
           ? "greenColor"
           : "redColor";
       },
@@ -277,14 +277,22 @@ const AllOrders = () => {
     orders.forEach((item) => {
       row.push({
         id: item._id,
-        itemsQty: item.cart.length,
+        itemsQty: item.cart.reduce((total, item) => total + item.qty, 0),
         total: item.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }),
         status: orderStatus[item.status],
       });
     });
-
+    const styles = `
+    .greenColor {
+      background-color: lightgreen !important;
+    }
+    .redColor {
+      background-color: lightcoral !important;
+    }
+  `;
   return (
     <div className="pl-8 pt-1">
+      <style>{styles}</style>
       <DataGrid
         rows={row}
         columns={columns}
@@ -315,9 +323,9 @@ const AllRefundOrders = () => {
       field: "status",
       headerName: "Trạng thái",
       minWidth: 130,
-      flex: 0.7,
+      flex: 1.4,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
+        return params.getValue(params.id, "status") === "Đã giao thành công"
           ? "greenColor"
           : "redColor";
       },
@@ -360,19 +368,34 @@ const AllRefundOrders = () => {
   ];
 
   const row = [];
-
+  const orderStatus = {
+    "Processing": "Đang xử lý",
+    "Transferred to delivery partner": "Đã bàn giao cho đơn vị vận chuyển",
+    "Shipping": "Đang vận chuyển",
+    "Received": "Đơn hàng đã đến trạm gần địa chỉ bạn cung cấp",
+    "On the way": "Đang trên đường giao, vui lòng chú ý điện thoại",
+    "Delivered": "Đã giao thành công"
+};
   eligibleOrders &&
     eligibleOrders.forEach((item) => {
       row.push({
         id: item._id,
-        itemsQty: item.cart.length,
-        total: "US$ " + item.totalPrice,
-        status: item.status,
+        itemsQty: item.cart.reduce((total, item) => total + item.qty, 0),
+        total: item.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }),
+        status: orderStatus[item.status],
       });
     });
-
+    const styles = `
+    .greenColor {
+      background-color: lightgreen !important;
+    }
+    .redColor {
+      background-color: lightcoral !important;
+    }
+  `;
   return (
     <div className="pl-8 pt-1">
+      <style>{styles}</style>
       <DataGrid
         rows={row}
         columns={columns}
@@ -401,9 +424,9 @@ const TrackOrder = () => {
       field: "status",
       headerName: "Trạng thái",
       minWidth: 130,
-      flex: 0.7,
+      flex: 1.4,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
+        return params.getValue(params.id, "status") === "Đã giao thành công"
           ? "greenColor"
           : "redColor";
       },
@@ -456,20 +479,26 @@ const TrackOrder = () => {
     "Delivered": "Đã giao thành công"
 };
 
-
-
   orders &&
     orders.forEach((item) => {
       row.push({
         id: item._id,
-        itemsQty: item.cart.length,
+        itemsQty: item.cart.reduce((total, item) => total + item.qty, 0),
         total: item.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }),
         status: orderStatus[item.status],
       });
     });
-
+    const styles = `
+    .greenColor {
+      background-color: lightgreen !important;
+    }
+    .redColor {
+      background-color: lightcoral !important;
+    }
+  `;
   return (
     <div className="pl-8 pt-1">
+      <style>{styles}</style>
       <DataGrid
         rows={row}
         columns={columns}

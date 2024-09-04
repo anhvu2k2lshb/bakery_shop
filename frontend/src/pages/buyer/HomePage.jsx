@@ -10,9 +10,10 @@ import Footer from "../../components/Layout/Footer";
 import Store from "../../redux/store";
 import { loadSeller, loadUser } from "../../redux/actions/user";
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export const HomePage = () => {
-
+  
   return (
     <div>
         <Header activeHeading={1} />

@@ -19,7 +19,7 @@ const AdminHeader = () => {
           />
         </Link>
       </div>
-      <div className="flex items-center">
+      {/* <div className="flex items-center">
         <div className="flex items-center mr-4">
           <Link to="/dashboard/cupouns" className="800px:block hidden">
             <AiOutlineGift
@@ -58,7 +58,7 @@ const AdminHeader = () => {
               className="w-[50px] h-[50px] rounded-full object-cover"
             />
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
